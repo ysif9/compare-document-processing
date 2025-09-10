@@ -5,6 +5,6 @@ from marker.output import text_from_rendered
 converter = PdfConverter(
     artifact_dict=create_model_dict(),
 )
-rendered = converter("Yousif Salah Mohammed CV.pdf")
+rendered = converter("../Yousif Salah Mohammed CV.pdf")
 text, _, images = text_from_rendered(rendered)
 print(text)

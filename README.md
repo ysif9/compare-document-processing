@@ -24,7 +24,6 @@ A Streamlit web application that compares PDF-to-Markdown extraction performance
 main.py
 ├── extract_with_marker()     # Marker processing pipeline
 ├── extract_with_docling()    # Docling processing pipeline
-├── generate_diff_html()      # Text difference calculation
 ├── calculate_similarity()    # Similarity ratio calculation
 └── main()                   # Streamlit UI and orchestration
 ```
@@ -38,25 +37,26 @@ main.py
 
 ### Setup
 
-1. **Clone or navigate to the project directory:**
+1. **Clone the project directory:**
    ```bash
-   cd streamlit_compare
+   git clone https://github.com/ysif9/compare-document-processing
    ```
 
 2. **Install dependencies:**
    ```bash
    # Using uv (recommended)
    uv sync
-
-   # Or using pip
-   pip install -e .
+   ```
+3. **Download marker independently (recommended)**
+   ```bash
+   uv run src/compare_document_processing/marker_test_and_download.py
    ```
 
 ## 🎯 Usage
 
 1. **Start the Streamlit application:**
    ```bash
-   streamlit run main.py
+   streamlit run src/compare_document_processing/main.py
    ```
 
 2. **Open your web browser** and navigate to the displayed URL (typically `http://localhost:8501`)
