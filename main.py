@@ -13,7 +13,7 @@ from marker.output import text_from_rendered
 from st_diff_viewer import diff_viewer
 
 
-def extract_with_marker(pdf_bytes, filename):
+def extract_with_marker(pdf_bytes: bytes):
     """Extract text from PDF using Marker"""
 
     try:
@@ -44,7 +44,7 @@ def extract_with_marker(pdf_bytes, filename):
         return None, None, str(e)
 
 
-def extract_with_docling(pdf_bytes, filename):
+def extract_with_docling(pdf_bytes: bytes, filename: str):
     """Extract text from PDF using Docling"""
 
     try:
@@ -58,7 +58,6 @@ def extract_with_docling(pdf_bytes, filename):
         # Time the conversion
         start_time = time.time()
         result = converter.convert(source)
-        # Get markdown output
         markdown_text = result.document.export_to_markdown()
         end_time = time.time()
 
@@ -71,12 +70,22 @@ def extract_with_docling(pdf_bytes, filename):
         return None, None, str(e)
 
 
-def calculate_similarity(text1, text2):
+def calculate_similarity(text1: str, text2: str) -> float:
     """Calculate similarity ratio between two texts"""
     return difflib.SequenceMatcher(None, text1, text2).ratio()
 
 
-def main():
+def main() -> None:
+    """
+    Main function for the application, providing an interface for comparing PDF-to-Markdown
+    extraction performance between the Marker library and the Docling library. The function
+    is executed in a Streamlit environment and utilizes its widgets and layout.
+
+    This function handles file uploads, extraction using the two libraries, and displays
+    various processing metrics, outputs, and comparisons to the user in an accessible format.
+
+    :raises ValueError: If invalid or unsupported inputs are provided during processing.
+    """
     st.set_page_config(
         page_title="PDF Extraction Comparison: Marker vs Docling",
         page_icon="📄",
@@ -115,7 +124,7 @@ def main():
         # Process with Marker
         with marker_placeholder.container():
             with st.spinner("Processing with Marker..."):
-                marker_text, marker_time, marker_error = extract_with_marker(pdf_bytes, uploaded_file.name)
+                marker_text, marker_time, marker_error = extract_with_marker(pdf_bytes)
 
         # Process with Docling
         with docling_placeholder.container():
@@ -195,7 +204,7 @@ def main():
                         right_title="Docling",
                     )
                 except ImportError as e:
-                    st.error(f"streamlit-diff-viewer not available, falling back to text diff: {e}")
+                    st.error(f"streamlit-diff-viewer not available: {e}")
 
         # Error handling
         if marker_error:
