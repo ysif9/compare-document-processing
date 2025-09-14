@@ -181,7 +181,7 @@ def main() -> None:
                 st.text_area(
                     "Marker Markdown",
                     marker_text,
-                    height=400,
+                    height=800,
                     key="marker_output"
                 )
 
@@ -190,7 +190,7 @@ def main() -> None:
                 st.text_area(
                     "Docling Markdown",
                     docling_text,
-                    height=400,
+                    height=800,
                     key="docling_output"
                 )
 
