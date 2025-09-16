@@ -13,7 +13,7 @@ from marker.output import text_from_rendered
 from st_diff_viewer import diff_viewer
 
 
-@st.cache
+@st.cache_resource
 def load_marker_models() -> dict:
     """Load Marker models"""
     return create_model_dict()
