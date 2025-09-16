@@ -13,6 +13,11 @@ from marker.output import text_from_rendered
 from st_diff_viewer import diff_viewer
 
 
+@st.cache
+def load_marker_models() -> dict:
+    """Load Marker models"""
+    return create_model_dict()
+
 def extract_with_marker(pdf_bytes: bytes):
     """Extract text from PDF using Marker"""
 
@@ -24,7 +29,7 @@ def extract_with_marker(pdf_bytes: bytes):
 
         # Initialize Marker converter
         converter = PdfConverter(
-            artifact_dict=create_model_dict(),
+            artifact_dict=load_marker_models(),
         )
 
         # Time the conversion
